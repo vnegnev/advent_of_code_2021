@@ -29,21 +29,27 @@ print("Gamma: ", gamma_dec, "Epsilon: ", epsilon_dec)
 print("Product: ", gamma_dec * epsilon_dec)
 
 ## Part 2, better way than before
-def list_filt(data, mask = 0, mask_hi=True):
+def dfilt(data, bit, hi=True):
+    mask = 1 << bit
     if mask_hi: # which bits are 1
         return data[data & mask > 0]
     else: # which bits are 0
         ## CONTINUE HERE
-        return data[data & mask > 0]
+        return data[~data & mask > 0]
 
 def mostcommon(data, bit):
     mask = 1 << bit
     return (data & mask != 0).mean() >= 0.5
 
 def filt_common(data):
+    data_new = data
     for b in range(N):
+        bit = N - 1 - b
+        hi = mostcommon(data, bit)
+        data_new = dfilt(data, bit, hi)
 
+testdata = np.array([10, 11, 01, 10])
 
 # print(list_filt(np.array([1, 2, 3]), 0x1))
 
-print(mostcommon(np.array([1, 2, 3, 4]), 2))
+# print(mostcommon(np.array([1, 2, 3, 4]), 1))
