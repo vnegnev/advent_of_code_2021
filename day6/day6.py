@@ -15,10 +15,7 @@ for lfish in real_input:
 days = 256
 
 for d in range(days):
-    counts_temp = np.zeros_like(counts)
-    counts_temp[:-1] = counts[1:]
-    counts_temp[6] += counts[0]
-    counts_temp[8] += counts[0]
-    counts = counts_temp
+    counts = np.hstack([counts[1:], counts[0]])
+    counts[6] += counts[-1]
     if (d + 1) % 16 == 0:
         print("After ", d+1, " days: ", counts.sum())
