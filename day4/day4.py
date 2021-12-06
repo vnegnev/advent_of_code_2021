@@ -7,6 +7,7 @@ called_numbers = None
 boards = []
 
 with open("inputfile.txt", "r") as ifile:
+# with open("examplefile.txt", "r") as ifile:
     firstline = True
     row = 0
     board = None
@@ -42,7 +43,7 @@ winners = []
 for n in called_numbers:
     for idx, (m, b) in enumerate(zip(matches, boards)):
         if idx in winners:
-            continue
+            continue # skip already-winning boards
         co = np.where(b == n)
         m[co[0], co[1]] = True
 
